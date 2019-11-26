@@ -1,8 +1,8 @@
 name: flutter_mq
 description: A new Flutter plugin for meiqia
 version: 0.0.1
-author:
-homepage:
+author: NightWolvesKing <nightwlovesking@gmail.com>
+homepage: https://github.com/ZmlWll/flutter_meiqia
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

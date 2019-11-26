@@ -12,31 +12,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String res = "未初始化";
+  String id = "";
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    initMeiQia();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
+  Future<void> initMeiQia() async {
     try {
-      platformVersion = await FlutterMq.platformVersion;
+      res = await FlutterMq.initMeiQia("4e9af9c6e9fb0cf1274ae34b2a952ddd");
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      res = 'Failed to get init.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      res = res;
     });
   }
 
@@ -44,12 +38,32 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+          appBar: AppBar(
+            title: const Text('客服Example'),
+          ),
+          body: Column(
+            children: <Widget>[
+              Center(
+                child: Text('Running on: $res\n'),
+              ),
+              TextField(
+                onChanged: (s){
+                  id = s;
+                },
+                controller: TextEditingController(text: id),
+              ),
+              FlatButton(
+                  onPressed: () async {
+                    //562849003
+                    Map<String,String> clientInfo = new Map();
+                    clientInfo["userId"] = "";
+                    clientInfo["订单ID"] = id;
+                    await FlutterMq.openMeiQia(id: "562849003",userInfo: clientInfo,isUpdate: true);
+                  },
+                  child: Text("打开客服")
+              )
+            ],
+          )
       ),
     );
   }
