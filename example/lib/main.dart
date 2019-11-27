@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initMeiQia() async {
     try {
-      res = await FlutterMq.initMeiQia("4e9af9c6e9fb0cf1274ae34b2a952ddd");
+      res = await FlutterMq.initMeiQia("你的appKey");
     } on PlatformException {
       res = 'Failed to get init.';
     }
@@ -54,11 +54,11 @@ class _MyAppState extends State<MyApp> {
               ),
               FlatButton(
                   onPressed: () async {
-                    //562849003
+                    //
                     Map<String,String> clientInfo = new Map();
                     clientInfo["userId"] = "";
                     clientInfo["订单ID"] = id;
-                    await FlutterMq.openMeiQia(id: "562849003",userInfo: clientInfo,isUpdate: true);
+                    await FlutterMq.openMeiQia(id: "id",userInfo: clientInfo,isUpdate: true);
                   },
                   child: Text("打开客服")
               )
