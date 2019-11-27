@@ -3,8 +3,6 @@ package com.nightwish.flutter_mq.mq;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -28,14 +26,14 @@ import com.meiqia.meiqiasdk.util.MQUtils;
  */
 public class MQGlideImageLoader4 extends MQImageLoader {
     @Override
-    public void displayImage(Activity activity, final ImageView imageView, String path, @DrawableRes int loadingResId, @DrawableRes int failResId, int width, int height, final MQDisplayImageListener displayImageListener) {
+    public void displayImage(Activity activity, final ImageView imageView, String path,  int loadingResId,  int failResId, int width, int height, final MQDisplayImageListener displayImageListener) {
         final String finalPath = getPath(path);
         Glide.with(activity)
                 .load(finalPath)
                 .apply(new RequestOptions().placeholder(loadingResId).error(failResId).override(width, height))
                 .listener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    public boolean onLoadFailed( GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         return false;
                     }
 
@@ -63,7 +61,7 @@ public class MQGlideImageLoader4 extends MQImageLoader {
             }
 
             @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+            public void onLoadFailed( Drawable errorDrawable) {
                 if (downloadImageListener != null) {
                     downloadImageListener.onFailed(finalPath);
                 }
